@@ -31,8 +31,6 @@ export default function LandingPage() {
           <div className="text-2x1">
             <p className="text-gray-600 mb-2">Don't have an account?</p>
             <p className="flex">
-              <Link to="/register-patient" className="text-blue-600 font-bold hover:underline">Register as a Patient</Link>
-              <span className="mx-2">or</span>
               <Link to="/register-hospital" className="text-blue-600 font-bold hover:underline">Register as a Hospital</Link>
             </p>
           </div>
