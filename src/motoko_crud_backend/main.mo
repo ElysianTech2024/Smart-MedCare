@@ -1,75 +1,36 @@
-import Nat32 "mo:base/Nat32";
-import Text "mo:base/Text";
-import Trie "mo:base/Trie";
-import Iter "mo:base/Iter";
-import Bool "mo:base/Bool";
-import Option "mo:base/Option";
+import Debug "mo:base/Debug";
+import Http "mo:base/Http";
+import Nat "mo:base/Nat";
+import Auth "mo:backend/auth";  // Ensure the correct path and module name
 
-actor  User {
-  public type UserId = Nat32;
-
-  public type Users = {
-    firstName: Text;
-    lastName: Text;
-  };
-  private stable var id: UserId = 0;
-  private stable var users :Trie.Trie<UserId, Users> = Trie.empty();
-
-  public func created(user: Users): async UserId{
-    let user_id = id;
-
-    id += 1;
-    users := Trie.replace(
-      users,
-      key(user_id),
-      Nat32.equal,
-      ?user,
-    ) .0;
-
-    return user_id
-  };
-
-  public query func read(user_id : UserId) : async ?Users {
-    let result = Trie.find(users, key(user_id), Nat32.equal);
-    return result;
-  };
-
-  public query func readAll() : async [(UserId, Users)] {
-    let allUsers = Iter.toArray(Trie.iter(users));
-    return allUsers;
-  };
-
-  public func update(user_id: UserId, userinput: Users) : async Bool{
-    let resultUser = Trie.find(users, key(user_id), Nat32.equal);
-
-    let data = Option.isSome(resultUser);
-    if(data) {
-      users := Trie.replace(
-      users,
-      key(user_id),
-      Nat32.equal,
-      ?userinput,
-      ).0;
-    };
-    return data;
-  };
-
-  public func delete(user_id: UserId) : async Bool{
-    let resultUser = Trie.find(users, key(user_id), Nat32.equal);
-
-    let data = Option.isSome(resultUser);
-    if(data) {
-      users := Trie.replace(
-      users,
-      key(user_id),
-      Nat32.equal,
-      null,
-      ).0;
-    };
-    return data;
-  };  
-
-  private func key(x : UserId) : Trie.Key<UserId> {
-    return {hash = x; key = x;};
-  };  
-};
+actor Main {
+    public query func handleRequest(req: Http.Request) : async Http.Response {
+        switch (req.path) {
+            case "/api/auth/login" {
+                switch (req.method) {
+                    case (Http Method.post) {
+                        return Auth.login(req.body);
+                    };
+                    _ => return Http.response(405, "text/plain", "Method Not Allowed");
+                }
+            };
+            case "/api/auth/signup" {
+                switch (req.method) {
+                    case (Http.Method.post) {
+                        return Auth.signUp(req.body);
+                    };
+                    _ => return Http.response(405, "text/plain", "Method Not Allowed");
+                }
+            };
+            case "/api/auth/logout" {
+                switch (req.method) {
+                    case (Http.Method.post) {
+                        return Auth.logOut();
+                    };
+                    _ => return Http.response(405, "text/plain", "Method Not Allowed");
+                }
+            };
+            _ => return Http.response(404, "text/plain", "Not Found");
+        }
+    }
+}
