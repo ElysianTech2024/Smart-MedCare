@@ -16,12 +16,8 @@
       "type": "motoko"
     },
     "motoko_crud_frontend": {
-      "dependencies": [
-        "motoko_crud_backend"
-      ],
-      "source": [
-        "src/motoko_crud_frontend/dist"
-      ],
+      "dependencies": ["motoko_crud_backend"],
+      "source": ["src/motoko_crud_frontend/dist"],
       "type": "assets",
       "workspace": "motoko_crud_frontend"
     }
