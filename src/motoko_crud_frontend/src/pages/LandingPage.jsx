@@ -9,7 +9,7 @@ export default function LandingPage() {
       style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       <div className="max-w-3xl w-full p-8 text-black absolute top-0 left-0">
-        <h1 className="text-1xl md:text-2xl font-bold mb-4">Smart MedCare</h1>
+        <h1 className="text-1xl md:text-2xl font-bold mb-4"></h1>
       </div>
       
       <div className="max-w-3xl w-full p-8 text-center">

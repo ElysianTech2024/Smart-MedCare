@@ -15,7 +15,6 @@ import {
   ClockIcon,
 } from '@heroicons/react/24/outline';
 
-// Sidebar navigation items
 const navigation = [
   { name: 'Dashboard', icon: HomeIcon, href: '/dashboard' },
   { name: 'Maternity Unit', icon: ClipboardDocumentListIcon, href: '#' },
@@ -28,16 +27,16 @@ const navigation = [
   { name: 'Pharmacy', icon: BuildingLibraryIcon, href: '/pharmacy' },
 ];
 
-// Updated Antenatal Care specific navigation items
-const antenatalCareNavigation = [
-  { name: 'Antenatal Registration', icon: ClipboardDocumentListIcon, href: '/antenatal-registration' },
-  { name: 'Antenatal Visits', icon: CalendarIcon, href: '/antenatal-visits' },
-  { name: 'Antenatal Records', icon: DocumentTextIcon, href: '/antenatal-records' },
-  { name: 'Medication and Treatment', icon: DocumentChartBarIcon, href: '/medication-treatment' },
-  { name: 'Emergency Management', icon: ClockIcon, href: '/emergency-management' },
+const maternitySubmenu = [
+  { name: 'Antenatal Care', href: '/antenatal-care', icon: CalendarIcon },
+  { name: 'Labour and Delivery', href: '/labour-delivery', icon: FolderIcon },
+  { name: 'New Born', href: '/new-born', icon: UserIcon },
+  { name: 'Postnatal Care', href: '/postnatal-care', icon: CalendarIcon },
+  { name: 'Discharges', href: '/discharges', icon: DocumentChartBarIcon },
+  { name: 'Appointments', href: '/appointments', icon: ClockIcon },
 ];
 
-function AntenatalCare() {
+function MaternityUnitPage() {
   return (
     <div className="flex min-h-screen">
       <aside className="w-64 bg-blue-400 p-8 fixed h-screen">
@@ -56,10 +55,10 @@ function AntenatalCare() {
         </nav>
       </aside>
       <main className="flex-1 bg-blue-50 p-8 ml-64">
-        <h1 className="text-3xl font-bold mb-8">Antenatal Care</h1>
+        <h1 className="text-3xl font-bold mb-8">Maternity Unit</h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-          {antenatalCareNavigation.map((item) => (
+          {maternitySubmenu.map((item) => (
             <Link
               key={item.name}
               to={item.href}
@@ -75,4 +74,4 @@ function AntenatalCare() {
   );
 }
 
-export default AntenatalCare;
+export default MaternityUnitPage;
